@@ -2,7 +2,7 @@
 ;;;
 ;;; text/sql/generator.sls - A SQL generator 
 ;;;  
-;;;   Copyright (c) 2010-2012  Takashi Kato  <ktakashi@ymail.com>
+;;;   Copyright (c) 2015  Takashi Kato  <ktakashi@ymail.com>
 ;;;   
 ;;;   Redistribution and use in source and binary forms, with or without
 ;;;   modification, are permitted provided that the following conditions
@@ -51,7 +51,8 @@
 		      (symbol->string (syntax->datum s)))))
     (syntax-case x ()
       ((k state (command ssql ctx out) body ...)
-       (with-syntax ((name (datum->syntax #'k (->name #'command #'state))))
+       (with-syntax ((name (datum->syntax #'command
+					  (->name #'command #'state))))
 	 #'(define name
 	     (let ((p (lambda (ssql ctx out) body ...)))
 	       (hashtable-set! *command-handler* 'command p)
